@@ -12,6 +12,6 @@
         "mjs": "node -r dotenv/config --experimental-json-modules"
       },
     "ext": "ts,mjs,js,json,ejs",
-    "exec": "tsc  && node ./dist/index.js",
+    "exec": "tsc  && node build.js ./dist/index.js",
     "legacyWatch": true
 }
