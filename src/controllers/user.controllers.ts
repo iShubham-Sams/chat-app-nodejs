@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import asyncHandler from "../utils/asyncHandler.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-export const registerForm = asyncHandler(async (req: Request, res: Response) => {
-  res.render("register");
+const registerForm = asyncHandler(async (req: Request, res: Response) => {
+  return res.render("register");
 });
 
-export const registerUser = asyncHandler(async (req: Request, res: Response) => {});
+const registerUser = asyncHandler(async (req: Request, res: Response) => {});
+
+export { registerForm, registerUser };

@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import userRoute from "./routes/user.route.js";
 
 var corsOptions = {
   origin: process.env.CORS_PRIGIN,
@@ -17,8 +16,12 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", "./src/views");
 
-app.use("/api/v1/user", userRoute);
+import userRoute from "./routes/user.routes.js";
+app.use("/api/v1/users", userRoute);
+app.use("*", (req, res) => {
+  res.send("not found");
+});
 
 export { app };

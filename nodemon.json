@@ -1,6 +1,7 @@
 {
     "watch": [
-        "src"
+        "src",
+        "views"
     ],
     "ignore": [
         "src/**/*.test.ts",
@@ -10,7 +11,7 @@
         "js": "node -r dotenv/config --experimental-json-modules",
         "mjs": "node -r dotenv/config --experimental-json-modules"
       },
-    "ext": "ts,mjs,js,json",
-    "exec": "tsc && node ./dist/index.js",
+    "ext": "ts,mjs,js,json,ejs",
+    "exec": "tsc  && node ./dist/index.js",
     "legacyWatch": true
 }

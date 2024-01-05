@@ -8,11 +8,10 @@ config({
 connectDB()
   .then(() => {
     app.on("error", (err) => {
-      console.log(`Server Error`, err);
       throw err;
     });
     app.listen(process.env.PORT ?? 8000, () => {
-      console.log(`Server is running at port:${process.env.PORT}`);
+      console.log(`Server is running at port:http://127.0.0.1:${process.env.PORT}`);
     });
   })
   .catch((err) => {
