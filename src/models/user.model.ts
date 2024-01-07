@@ -1,15 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      index: true,
     },
     email: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
     image: {
       type: String,
@@ -17,7 +24,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
     },
     is_online: {
       type: String,
