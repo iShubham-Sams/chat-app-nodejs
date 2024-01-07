@@ -46,4 +46,14 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   return res.status(HttpStatusCode.OK).render("register", { message: "user register successfully", type: "success" });
 });
 
-export { registerForm, registerUser };
+const loadLogin = asyncHandler(async (req: Request, res: Response) => {
+  res.render("login");
+});
+
+const login = asyncHandler(async (req: Request, res: Response) => {});
+
+const logOut = asyncHandler(async (req: Request, res: Response) => {});
+
+const loadDashboard = asyncHandler(async (req: Request, res: Response) => {});
+
+export { registerForm, registerUser, loadLogin, login, logOut, loadDashboard };
