@@ -4,7 +4,6 @@ import { userZodValidation } from "../zodSchema/user.zodSchema.js";
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/apiError.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import { ApiResponse } from "../utils/apiResponse.js";
 
 const registerForm = asyncHandler(async (req: Request, res: Response) => {
   return res.render("register");
@@ -18,15 +17,15 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     $or: [{ email, name }],
   });
   if (userAlready) {
-    throw new ApiError("User with email or username already exists", 409, "Conflict");
+    return res.render("register", { message: "user with this email or name already exist", type: "error" });
   }
   let profileImageLocalPath = req.file?.path;
   if (!profileImageLocalPath) {
-    throw new ApiError("Profile file is required", 400, "BadRequest");
+    return res.render("register", { message: "profile file are required", type: "error" });
   }
   const image = await uploadOnCloudinary(profileImageLocalPath);
   if (!image) {
-    throw new ApiError("Avatar file is required", 400, "BadRequest");
+    return res.render("register", { message: "profile file are required", type: "error" });
   }
 
   const user = await User.create({
@@ -39,9 +38,9 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   const userCreateDone = await User.findById(user._id).select("-password -refreshToken ");
   if (!userCreateDone) {
-    throw ApiError.ServerError("Something went wrong while registering user");
+    return res.render("register", { message: "Something went wrong while registering user", type: "error" });
   }
-  return res.render("register", { message: "user register successfully" });
+  return res.render("register", { message: "user register successfully", type: "success" });
 });
 
 export { registerForm, registerUser };
