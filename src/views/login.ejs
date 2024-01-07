@@ -61,6 +61,17 @@
         <br><br>
         <input type="submit" value="Login"/>
     </form>
+    <%
+        if (typeof message !== 'undefined') {
+          if (type === "error") { %>
+            <p style="color: red;"><%= message %></p>
+        <%
+          } else { %>
+            <p style="color: green;"><%= message %></p>
+        <%
+          }
+        }
+        %>
 </div>
 
 </body>

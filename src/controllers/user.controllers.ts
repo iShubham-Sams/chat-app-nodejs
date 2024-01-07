@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { userZodValidation } from "../zodSchema/user.zodSchema.js";
+import { userLoginZodValidation, userRegisterZodValidation } from "../zodSchema/user.zodSchema.js";
 import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/apiError.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import fs from "fs";
 import HttpStatusCode from "../utils/statusCode.js";
@@ -14,7 +13,7 @@ const registerForm = asyncHandler(async (req: Request, res: Response) => {
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const {
     body: { email, name, password },
-  } = await userZodValidation.parseAsync(req);
+  } = await userRegisterZodValidation.parseAsync(req);
   let userAlready = await User.findOne({
     $or: [{ email, name }],
   });
@@ -50,10 +49,30 @@ const loadLogin = asyncHandler(async (req: Request, res: Response) => {
   res.render("login");
 });
 
-const login = asyncHandler(async (req: Request, res: Response) => {});
+const login = asyncHandler(async (req: Request, res: Response) => {
+  const {
+    body: { email, password },
+  } = await userLoginZodValidation.parseAsync(req);
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.render("login", { message: "Email and Password is Incorrect", type: "error" });
+  }
+  const correctPassword = await user.isPasswordCorrect(password);
+  if (!correctPassword) {
+    return res.render("login", { message: "Email and Password is Incorrect", type: "error" });
+  } else {
+    req.session.user = user;
+    res.redirect("/api/v1/users/dashboard");
+  }
+});
 
-const logOut = asyncHandler(async (req: Request, res: Response) => {});
+const logOut = asyncHandler(async (req: Request, res: Response) => {
+  req.session.destroy();
+  res.redirect("/api/v1/users");
+});
 
-const loadDashboard = asyncHandler(async (req: Request, res: Response) => {});
+const loadDashboard = asyncHandler(async (req: Request, res: Response) => {
+  res.render("dashboard", { user: req.session.user });
+});
 
 export { registerForm, registerUser, loadLogin, login, logOut, loadDashboard };
