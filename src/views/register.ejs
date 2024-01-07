@@ -61,20 +61,20 @@
             <br><br>
             <input type="submit" value="Register"/>
         </form>
+        <%
+        if (typeof message !== 'undefined') {
+          if (type === "error") { %>
+            <p style="color: red;"><%= message %></p>
+        <%
+          } else { %>
+            <p style="color: green;"><%= message %></p>
+        <%
+          }
+        }
+        %>
     </div>
         
 </body>
 </html>
 
 
-<%
-if (typeof message !== 'undefined') {
-  if (type === "error") { %>
-    <p style="color: red;"><%= message %></p>
-<%
-  } else { %>
-    <p style="color: green;"><%= message %></p>
-<%
-  }
-}
-%>
