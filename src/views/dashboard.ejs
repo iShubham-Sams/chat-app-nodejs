@@ -1,2 +1,4 @@
-<h1>Hii, <%= user.name %></h1>
-<a href="/api/v1/users/logout">Log out</a>
+<%- include("layouts/header.ejs") %>
+<h2 class="mb-4">Hi, <%= user.name %> </h2>
+<%- include("layouts/footer.ejs") %>
+

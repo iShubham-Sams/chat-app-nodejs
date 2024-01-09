@@ -62,13 +62,13 @@ const login = asyncHandler(async (req: Request, res: Response) => {
     return res.render("login", { message: "Email and Password is Incorrect", type: "error" });
   } else {
     req.session.user = user;
-    res.redirect("/api/v1/users/dashboard");
+    res.redirect("/api/v1/dashboard");
   }
 });
 
 const logOut = asyncHandler(async (req: Request, res: Response) => {
   req.session.destroy();
-  res.redirect("/api/v1/users");
+  res.redirect("/api/v1/");
 });
 
 const loadDashboard = asyncHandler(async (req: Request, res: Response) => {

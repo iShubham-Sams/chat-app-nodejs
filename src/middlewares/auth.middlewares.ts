@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 const isLogin = (req: Request, res: Response, nex: NextFunction) => {
   try {
     if (req.session.user) {
+      nex();
     } else {
       res.redirect("/api/v1");
     }
