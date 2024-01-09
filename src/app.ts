@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import path from "path";
 import { config } from "dotenv";
+import { fileURLToPath } from "url";
 config({
   path: "./.env",
 });
@@ -19,9 +21,11 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true, limit: "20kb" }));
-app.use(express.static("public"));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
-app.use(express.static("public"));
 app.use(session({ secret: SESSION_SECRET }));
 
 app.set("view engine", "ejs");
