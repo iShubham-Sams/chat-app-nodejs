@@ -28,7 +28,7 @@ app.set("view engine", "ejs");
 app.set("views", "./src/views");
 
 import userRoute from "./routes/user.routes.js";
-app.use("/api/v1/users", userRoute);
+app.use("/api/v1", userRoute);
 
 app.use("*", (req, res) => {
   res.send("not found");
