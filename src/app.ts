@@ -5,6 +5,8 @@ import session from "express-session";
 import path from "path";
 import { config } from "dotenv";
 import { fileURLToPath } from "url";
+
+import socket from "socket.io";
 config({
   path: "./.env",
 });

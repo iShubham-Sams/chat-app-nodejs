@@ -1,12 +1,13 @@
 <%- include("layouts/header.ejs") %>
-    <h2 class="mb-4">Hi, <%= user.name %> </h2>
-    <div class="row">
-        <div class="col-md-3">
-         <ul class="list-group">
+    <h2 class="mb-4 ">Hi, <%= user.name %> </h2>
+    <div class="row ">
+        <div class="col-md-3 ">
+         <ul class="list-group ">
             <% if(users.length>0){
               for(let i=0;i < users.length;i++){
                 %>
-                <li class="list-group-item list-group-item-dark">
+                <li class="list-group-item list-group-item-dark cursor-pointer user-list">
+                  <img src="<%= users[i].image %>" width="50px" height="50px"/>
                     <%= users[i]['name'] %>
                 </li>
                 <%
@@ -15,7 +16,7 @@
          </ul>
         </div>
         <div class="col-md-9">
-
+          <h3></h3>
         </div>
     </div>
 <%- include("layouts/footer.ejs") %>

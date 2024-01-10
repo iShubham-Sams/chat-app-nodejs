@@ -8330,3 +8330,10 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: #4897fc; }
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.b{
+  border: 1px solid red;
+}
