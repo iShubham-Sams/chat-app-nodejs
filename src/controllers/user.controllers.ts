@@ -72,7 +72,9 @@ const logOut = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const loadDashboard = asyncHandler(async (req: Request, res: Response) => {
-  res.render("dashboard", { user: req.session.user });
+  let users = await User.find({ _id: { $nin: [req.session.user._id] } });
+
+  res.render("dashboard", { user: req.session.user, users: users });
 });
 
 export { registerForm, registerUser, loadLogin, login, logOut, loadDashboard };
